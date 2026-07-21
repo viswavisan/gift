@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Gift For You</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="gift-reveal-page">
+    <!-- Background Canvas for Occasion Animation (Balloons, Hearts, Snowflakes, Stars) -->
+    <canvas id="ambient-canvas" class="ambient-canvas"></canvas>
+
+    <!-- Confetti canvas overlay for when the gift opens -->
+    <canvas id="confetti-canvas" class="confetti-canvas"></canvas>
+
+    <div class="reveal-container">
+        <!-- Interactive Stage -->
+        <div id="interactive-stage" class="interactive-stage">
+            
+            <!-- Classic Wrap Overlay -->
+            <div id="classic-wrap-wrapper" class="classic-wrap-wrapper">
+                <div class="box-container" id="gift-box">
+                    <div class="ribbon-vertical"></div>
+                    <div class="ribbon-horizontal"></div>
+                    <div class="box-lid">
+                        <div class="ribbon-bow"></div>
+                    </div>
+                    <div class="box-body"></div>
+                </div>
+                <div class="wrap-instruction">
+                    <i class="fa-solid fa-hand-pointer animate-pulse"></i>
+                    <span>Click the ribbon to unwrap!</span>
+                </div>
+            </div>
+
+            <!-- Choice Grid (Initially Hidden) -->
+            <div id="choice-grid-container" class="choice-grid-container hidden">
+                <h2 class="choice-title">Pick Your Gift, {{ recipient }}!</h2>
+                <div class="choice-grid">
+                    <div class="choice-card animate-choice-in" data-gift="iphone" style="animation-delay: 0.1s;">
+                        <div class="choice-img-container">
+                            <img src="{{ url_for('static', filename='images/iphone.png') }}" alt="iPhone 15 Pro Max">
+                        </div>
+                        <h3>iPhone 15 Pro Max</h3>
+                    </div>
+                    <div class="choice-card animate-choice-in" data-gift="ps5" style="animation-delay: 0.2s;">
+                        <div class="choice-img-container">
+                            <img src="{{ url_for('static', filename='images/ps5.png') }}" alt="PlayStation 5">
+                        </div>
+                        <h3>PlayStation 5</h3>
+                    </div>
+                    <div class="choice-card animate-choice-in" data-gift="airpods" style="animation-delay: 0.3s;">
+                        <div class="choice-img-container">
+                            <img src="{{ url_for('static', filename='images/airpods.png') }}" alt="AirPods Max">
+                        </div>
+                        <h3>AirPods Max</h3>
+                    </div>
+                    <div class="choice-card animate-choice-in" data-gift="watch" style="animation-delay: 0.4s;">
+                        <div class="choice-img-container">
+                            <img src="{{ url_for('static', filename='images/watch.png') }}" alt="Luxury Watch">
+                        </div>
+                        <h3>Luxury Watch</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Revealed Content Card (Initially Hidden) -->
+            <div id="revealed-content" class="revealed-content hidden">
+                <!-- Outer 3D perspective wrapper -->
+                <div class="gift-card-3d-wrapper">
+                    <!-- Glassmorphic Tilt Card -->
+                    <div class="gift-card" id="gift-card">
+                        <div class="card-glow"></div>
+                        <div class="card-inner">
+                            <span class="occasion-badge">{{ occasion }}</span>
+                            <div class="gift-image-container">
+                                <img src="" alt="" class="gift-img" id="reveal-gift-img">
+                            </div>
+                            <h3 class="gift-item-title" id="reveal-gift-title"></h3>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Envelope / Greeting Card -->
+                <div class="greeting-note-container" id="greeting-note">
+                    <div class="note-paper">
+                        <div class="note-header">
+                            <span class="note-title">For {{ recipient }}</span>
+                        </div>
+                        <div class="note-body">
+                            <p class="greeting-message">"{{ message }}"</p>
+                        </div>
+                        <div class="note-footer">
+                            <p class="signature">With love &bull; Happy {{ occasion }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer Action to create their own -->
+                <div class="action-footer animate-fade-in">
+                    <a href="/" class="btn btn-secondary btn-restart">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> Make a Gift Link
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Pass backend variables to Javascript securely -->
+    <script>
+        window.giftData = {
+            giftId: {{ gift_id | tojson }},
+            recipient: {{ recipient | tojson }},
+            occasion: {{ occasion | tojson }},
+            wrapStyle: {{ wrap_style | tojson }},
+            giftItem: {{ gift_item | tojson }},
+            message: {{ message | tojson }}
+        };
+    </script>
+    <script src="{{ url_for('static', filename='js/gift.js') }}"></script>
+</body>
+</html>

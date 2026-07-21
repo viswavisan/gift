@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gift Tracker - Status</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="status-page">
+    <div class="background-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <div class="app-container">
+        <header>
+            <div class="logo">
+                <i class="fa-solid fa-square-poll-vertical logo-icon"></i>
+                <span class="logo-text">Gift<span>Tracker</span></span>
+            </div>
+            <p class="subtitle">Real-time delivery & selection tracking status</p>
+        </header>
+
+        <main class="status-container">
+            <section class="card status-card">
+                <div class="status-header">
+                    <h2><i class="fa-solid fa-circle-info icon-header"></i> Gift Details</h2>
+                    {% if gift_item == 'Pending Selection' %}
+                    <span class="badge badge-pending"><i class="fa-solid fa-spinner fa-spin"></i> Pending Selection</span>
+                    {% else %}
+                    <span class="badge badge-claimed"><i class="fa-solid fa-circle-check"></i> Claimed & Opened</span>
+                    {% endif %}
+                </div>
+
+                <div class="status-info-grid">
+                    <div class="info-item">
+                        <span class="info-label">Recipient</span>
+                        <span class="info-value">{{ recipient }}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Occasion</span>
+                        <span class="info-value">{{ occasion }}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Secret Message</span>
+                        <span class="info-value message-value">"{{ message }}"</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Created On</span>
+                        <span class="info-value date-value">{{ created_at }}</span>
+                    </div>
+                </div>
+
+                <!-- Gift Choice Status Box -->
+                <div class="selection-status-box">
+                    {% if gift_item == 'Pending Selection' %}
+                    <div class="pending-state">
+                        <div class="waiting-icon">
+                            <i class="fa-solid fa-gift animate-pulse-gift"></i>
+                        </div>
+                        <h3>Awaiting Selection</h3>
+                        <p>{{ recipient }} hasn't opened their gift box or chosen a gift option yet. Refresh this page to track their live selection!</p>
+                        <button onclick="window.location.reload();" class="btn btn-secondary">
+                            <i class="fa-solid fa-rotate"></i> Refresh Status
+                        </button>
+                    </div>
+                    {% else %}
+                    <div class="claimed-state">
+                        <h3>{{ recipient }} selected:</h3>
+                        
+                        <!-- Show matching selection card -->
+                        <div class="gift-card-3d-wrapper margin-auto">
+                            <div class="gift-card tracker-gift-card">
+                                <div class="card-glow"></div>
+                                <div class="card-inner">
+                                    <div class="gift-image-container">
+                                        {% if gift_item == 'iphone' or 'iPhone' in gift_item %}
+                                        <img src="{{ url_for('static', filename='images/iphone.png') }}" alt="iPhone 15 Pro Max" class="gift-img">
+                                        {% elif gift_item == 'ps5' or 'PlayStation' in gift_item %}
+                                        <img src="{{ url_for('static', filename='images/ps5.png') }}" alt="PlayStation 5" class="gift-img">
+                                        {% elif gift_item == 'airpods' or 'AirPods' in gift_item %}
+                                        <img src="{{ url_for('static', filename='images/airpods.png') }}" alt="AirPods Max" class="gift-img">
+                                        {% elif gift_item == 'watch' or 'Watch' in gift_item %}
+                                        <img src="{{ url_for('static', filename='images/watch.png') }}" alt="Luxury Watch" class="gift-img">
+                                        {% else %}
+                                        <div class="gift-placeholder-icon"><i class="fa-solid fa-gift"></i></div>
+                                        {% endif %}
+                                    </div>
+                                    <h3 class="gift-item-title">
+                                        {% if gift_item == 'iphone' %}iPhone 15 Pro Max
+                                        {% elif gift_item == 'ps5' %}PlayStation 5
+                                        {% elif gift_item == 'airpods' %}AirPods Max
+                                        {% elif gift_item == 'watch' %}Luxury Watch
+                                        {% else %}{{ gift_item }}{% endif %}
+                                    </h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div class="status-footer">
+                    <a href="/" class="btn btn-primary">
+                        <i class="fa-solid fa-plus"></i> Create Another Gift
+                    </a>
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>
