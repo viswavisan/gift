@@ -51,6 +51,24 @@
                         </select>
                     </div>
 
+                    <!-- Presenter Gift Options Creator Section -->
+                    <div class="form-group options-section-wrapper">
+                        <div class="options-header-row">
+                            <label class="section-heading-label">
+                                <i class="fa-solid fa-boxes-stacked"></i> Gift Choices for Recipient
+                            </label>
+                            <button type="button" class="btn btn-sm btn-outline-add" id="btn-add-option" title="Add another gift choice">
+                                <i class="fa-solid fa-plus"></i> Add Choice
+                            </button>
+                        </div>
+                        <p class="section-hint-text">
+                            Add choices for {{ recipient or 'your recipient' }} to unwrap and pick from. Upload photos, enter specifications, or paste Amazon / Flipkart product links!
+                        </p>
+                        
+                        <div id="options-list-container" class="options-list-container">
+                            <!-- Populated dynamically by main.js -->
+                        </div>
+                    </div>
 
                     <div class="form-group">
                         <label for="message"><i class="fa-regular fa-envelope"></i> Secret Greeting Message</label>
@@ -81,6 +99,16 @@
                     <p class="preview-to">To: <span id="preview-to-name">Someone Special</span></p>
                     <p class="preview-occ">Occasion: <span id="preview-occ-value">Birthday</span></p>
                 </div>
+
+                <div class="preview-options-panel">
+                    <div class="preview-options-header">
+                        <span><i class="fa-solid fa-gifts"></i> Choices in this Box (<span id="preview-opt-count">0</span>)</span>
+                    </div>
+                    <div id="preview-options-chips" class="preview-options-chips">
+                        <!-- Live preview cards/chips of options -->
+                    </div>
+                </div>
+            </section>
         </main>
 
         <!-- Track Section -->

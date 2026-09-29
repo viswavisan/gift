@@ -1359,3 +1359,759 @@ h2 {
     margin-top: 0;
 }
 
+/* ==================================================== */
+/* PRESENTER CUSTOM GIFT OPTIONS STYLING */
+/* ==================================================== */
+
+.options-section-wrapper {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 16px;
+    padding: 1.25rem;
+    margin-bottom: 1.5rem;
+}
+
+.options-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.35rem;
+}
+
+.section-heading-label {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.btn-outline-add {
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(217, 70, 239, 0.2));
+    border: 1px solid var(--primary);
+    color: #fff;
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 0.4rem 0.9rem;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.btn-outline-add:hover {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    box-shadow: 0 4px 15px var(--primary-glow);
+    transform: translateY(-2px);
+}
+
+.section-hint-text {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+    margin-bottom: 1rem;
+}
+
+.options-list-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.option-item-card {
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    padding: 1rem;
+    position: relative;
+    transition: var(--transition-smooth);
+}
+
+.option-item-card:hover {
+    border-color: rgba(139, 92, 246, 0.35);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+}
+
+.option-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.85rem;
+}
+
+.option-number-badge {
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--gold);
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: rgba(234, 179, 8, 0.1);
+    padding: 0.2rem 0.6rem;
+    border-radius: 6px;
+    border: 1px solid rgba(234, 179, 8, 0.25);
+}
+
+.btn-remove-option {
+    background: transparent;
+    border: none;
+    color: #ef4444;
+    cursor: pointer;
+    font-size: 0.95rem;
+    padding: 0.3rem 0.5rem;
+    border-radius: 6px;
+    transition: var(--transition-smooth);
+}
+
+.btn-remove-option:hover {
+    background: rgba(239, 68, 68, 0.15);
+    transform: scale(1.1);
+}
+
+.option-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.option-field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.option-field-group label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.option-field-group label .req {
+    color: var(--accent);
+}
+
+.option-field-group input {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 0.6rem 0.85rem;
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 0.9rem;
+    transition: var(--transition-smooth);
+    width: 100%;
+}
+
+.option-field-group input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 10px var(--primary-glow);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+/* Image uploader */
+.image-uploader-container {
+    width: 100%;
+}
+
+.uploader-preview-row {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+}
+
+.uploader-thumb-box {
+    width: 60px;
+    height: 60px;
+    min-width: 60px;
+    border-radius: 10px;
+    border: 2px dashed rgba(255, 255, 255, 0.18);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.03);
+    position: relative;
+    overflow: hidden;
+    transition: var(--transition-smooth);
+}
+
+.uploader-thumb-box:hover {
+    border-color: var(--primary);
+    background: rgba(139, 92, 246, 0.08);
+}
+
+.uploader-thumb-box.has-image {
+    border-style: solid;
+    border-color: rgba(255, 255, 255, 0.2);
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.thumb-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.btn-thumb-remove {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    background: rgba(239, 68, 68, 0.85);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    font-size: 12px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.thumb-empty-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.2rem;
+    color: var(--text-secondary);
+    font-size: 0.65rem;
+}
+
+.thumb-empty-placeholder i {
+    font-size: 1rem;
+    color: var(--primary);
+}
+
+.uploader-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-grow: 1;
+    flex-wrap: wrap;
+}
+
+.btn-upload-trigger {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: var(--text-primary);
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 0.5rem 0.8rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    white-space: nowrap;
+}
+
+.btn-upload-trigger:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: var(--primary);
+}
+
+.uploader-or {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+.input-opt-image-url {
+    flex-grow: 1;
+    min-width: 140px;
+    font-size: 0.8rem !important;
+    padding: 0.45rem 0.7rem !important;
+}
+
+/* Amazon Input Wrapper */
+.amazon-icon-accent {
+    color: #ff9900;
+}
+
+.amazon-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.amazon-input-badge {
+    position: absolute;
+    left: 10px;
+    color: #ff9900;
+    font-size: 1.1rem;
+    pointer-events: none;
+}
+
+.amazon-input-wrapper input {
+    padding-left: 2.2rem !important;
+}
+
+/* Live Preview Panel Options */
+.preview-options-panel {
+    margin-top: 1.5rem;
+    border-top: 1px solid var(--border-color);
+    padding-top: 1.25rem;
+    width: 100%;
+}
+
+.preview-options-header {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.75rem;
+}
+
+.preview-options-chips {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    max-height: 220px;
+    overflow-y: auto;
+    padding-right: 0.25rem;
+}
+
+.preview-opt-chip {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 10px;
+    padding: 0.5rem 0.75rem;
+    transition: var(--transition-smooth);
+}
+
+.preview-opt-chip:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(139, 92, 246, 0.3);
+}
+
+.chip-img-box {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    border-radius: 8px;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chip-img-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.chip-img-box i {
+    font-size: 1rem;
+    color: var(--primary);
+}
+
+.chip-text-box {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    gap: 0.15rem;
+}
+
+.chip-title {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.chip-specs {
+    font-size: 0.72rem;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.chip-amazon {
+    font-size: 0.68rem;
+    color: #ff9900;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.preview-empty-hint {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+/* Choice card improvements */
+.choice-fallback-icon {
+    font-size: 3rem;
+    color: var(--primary);
+    filter: drop-shadow(0 0 15px var(--primary-glow));
+}
+
+.choice-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    width: 100%;
+}
+
+.choice-specs {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    line-height: 1.35;
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 8px;
+    padding: 0.35rem 0.65rem;
+    margin-top: 0.25rem;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    max-width: 90%;
+}
+
+.choice-amazon-wrapper {
+    margin-top: 0.35rem;
+}
+
+.choice-amazon-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #ff9900;
+    background: rgba(255, 153, 0, 0.12);
+    border: 1px solid rgba(255, 153, 0, 0.3);
+    padding: 0.3rem 0.7rem;
+    border-radius: 20px;
+    text-decoration: none;
+    transition: var(--transition-smooth);
+}
+
+.choice-amazon-pill:hover {
+    background: rgba(255, 153, 0, 0.25);
+    transform: scale(1.05);
+}
+
+.btn-select-gift {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    border: none;
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.85rem;
+    padding: 0.5rem 1.25rem;
+    border-radius: 12px;
+    cursor: pointer;
+    margin-top: 0.5rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: var(--transition-smooth);
+    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+}
+
+.btn-select-gift:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px var(--accent-glow);
+}
+
+/* Revealed Content Card enhancements */
+.gift-item-specs {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    margin-top: 0.5rem;
+    padding: 0.4rem 0.8rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    display: inline-block;
+    max-width: 85%;
+}
+
+.reveal-amazon-wrapper {
+    margin-top: 1rem;
+}
+
+.btn-amazon {
+    background: linear-gradient(135deg, #ff9900, #f59e0b);
+    color: #111;
+    font-weight: 700;
+    font-size: 0.95rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 14px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    box-shadow: 0 6px 20px rgba(255, 153, 0, 0.4);
+    transition: var(--transition-smooth);
+    border: none;
+}
+
+.btn-amazon:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 10px 28px rgba(255, 153, 0, 0.6);
+    color: #000;
+}
+
+/* Status Tracker Options List */
+.offered-options-container {
+    margin-top: 1.75rem;
+    border-top: 1px solid var(--border-color);
+    padding-top: 1.5rem;
+    width: 100%;
+    text-align: left;
+}
+
+.offered-options-container h4 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.offered-options-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1rem;
+}
+
+.offered-option-card {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 12px;
+    padding: 0.85rem;
+    transition: var(--transition-smooth);
+}
+
+.offered-option-card:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(139, 92, 246, 0.3);
+    transform: translateY(-2px);
+}
+
+.offered-option-img {
+    width: 52px;
+    height: 52px;
+    min-width: 52px;
+    border-radius: 8px;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.offered-option-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.offered-option-img .gift-placeholder-icon i {
+    font-size: 1.5rem;
+    color: var(--primary);
+}
+
+.offered-option-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    overflow: hidden;
+}
+
+.offered-option-info h5 {
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.offered-option-specs {
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    line-height: 1.3;
+    margin: 0;
+}
+
+.btn-amazon-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #ff9900;
+    background: rgba(255, 153, 0, 0.12);
+    border: 1px solid rgba(255, 153, 0, 0.25);
+    padding: 0.2rem 0.6rem;
+    border-radius: 12px;
+    text-decoration: none;
+    width: fit-content;
+    margin-top: 0.2rem;
+    transition: var(--transition-smooth);
+}
+
+.btn-amazon-pill:hover {
+    background: rgba(255, 153, 0, 0.25);
+    transform: scale(1.05);
+}
+
+.claimed-badge {
+    background: rgba(16, 185, 129, 0.15);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    color: #34d399;
+    font-size: 0.85rem;
+    font-weight: 700;
+    padding: 0.35rem 0.9rem;
+    border-radius: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-bottom: 0.5rem;
+}
+
+.tracker-amazon-cta {
+    margin-top: 1.25rem;
+    display: flex;
+    justify-content: center;
+}
+
+/* Flipkart & Store Badges / Buttons */
+.badge-flipkart i,
+.chip-flipkart {
+    color: #2874f0 !important;
+}
+
+.chip-store {
+    font-size: 0.68rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.chip-amazon {
+    color: #ff9900;
+}
+
+.badge-general i,
+.chip-store {
+    color: #a78bfa;
+}
+
+.btn-flipkart {
+    background: linear-gradient(135deg, #2874f0, #0053bf);
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 0.95rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 14px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    box-shadow: 0 6px 20px rgba(40, 116, 240, 0.45);
+    transition: var(--transition-smooth);
+    border: none;
+}
+
+.btn-flipkart:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 10px 28px rgba(40, 116, 240, 0.65);
+    color: #ffffff;
+}
+
+.choice-flipkart-pill,
+.btn-flipkart-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #60a5fa !important;
+    background: rgba(40, 116, 240, 0.15) !important;
+    border: 1px solid rgba(40, 116, 240, 0.35) !important;
+    padding: 0.3rem 0.7rem;
+    border-radius: 20px;
+    text-decoration: none;
+    transition: var(--transition-smooth);
+}
+
+.choice-flipkart-pill:hover,
+.btn-flipkart-pill:hover {
+    background: rgba(40, 116, 240, 0.3) !important;
+    transform: scale(1.05);
+    color: #93c5fd !important;
+}
+
+.choice-general-pill,
+.btn-general-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #c084fc;
+    background: rgba(192, 132, 252, 0.12);
+    border: 1px solid rgba(192, 132, 252, 0.3);
+    padding: 0.3rem 0.7rem;
+    border-radius: 20px;
+    text-decoration: none;
+    transition: var(--transition-smooth);
+}
+
+.choice-general-pill:hover,
+.btn-general-pill:hover {
+    background: rgba(192, 132, 252, 0.25);
+    transform: scale(1.05);
+}
+
+.btn-general-store {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 0.95rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 14px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    box-shadow: 0 6px 20px var(--primary-glow);
+    transition: var(--transition-smooth);
+    border: none;
+}
+
+.btn-general-store:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 10px 28px var(--accent-glow);
+    color: #ffffff;
+}
+
+
+

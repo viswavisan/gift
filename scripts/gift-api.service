@@ -1,0 +1,13 @@
+[Unit]
+Description=GIFT API Service
+After=network.target
+
+[Service]
+User=opc
+WorkingDirectory=/home/opc/gift
+Environment="PATH=/home/opc/gift/venv/bin:/usr/local/bin:/usr/bin:/bin"
+ExecStart=/home/opc/gift/venv/bin/python3 /home/opc/gift/app.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

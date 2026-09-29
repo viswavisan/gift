@@ -71,9 +71,50 @@
                         <button onclick="window.location.reload();" class="btn btn-secondary">
                             <i class="fa-solid fa-rotate"></i> Refresh Status
                         </button>
+
+                        {% if options and options|length > 0 %}
+                        <div class="offered-options-container">
+                            <h4><i class="fa-solid fa-boxes-stacked"></i> Choices You Offered ({{ options|length }}):</h4>
+                            <div class="offered-options-grid">
+                                {% for opt in options %}
+                                <div class="offered-option-card">
+                                    <div class="offered-option-img">
+                                        {% if opt.image_url %}
+                                        <img src="{{ opt.image_url }}" alt="{{ opt.title }}" onerror="this.onerror=null; this.src='/static/images/iphone.png';">
+                                        {% else %}
+                                        <div class="gift-placeholder-icon"><i class="fa-solid fa-gift"></i></div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="offered-option-info">
+                                        <h5>{{ opt.title }}</h5>
+                                        {% if opt.specs %}
+                                        <p class="offered-option-specs"><i class="fa-solid fa-sliders"></i> {{ opt.specs }}</p>
+                                        {% endif %}
+                                        {% if opt.amazon_link %}
+                                            {% if 'flipkart' in opt.amazon_link|lower %}
+                                            <a href="{{ opt.amazon_link }}" target="_blank" rel="noopener noreferrer" class="btn-store-pill btn-flipkart-pill">
+                                                <i class="fa-solid fa-bag-shopping"></i> Flipkart Link <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                            </a>
+                                            {% elif 'amazon' in opt.amazon_link|lower or 'amzn' in opt.amazon_link|lower %}
+                                            <a href="{{ opt.amazon_link }}" target="_blank" rel="noopener noreferrer" class="btn-store-pill btn-amazon-pill">
+                                                <i class="fa-brands fa-amazon"></i> Amazon Link <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                            </a>
+                                            {% else %}
+                                            <a href="{{ opt.amazon_link }}" target="_blank" rel="noopener noreferrer" class="btn-store-pill btn-general-pill">
+                                                <i class="fa-solid fa-cart-shopping"></i> Store Link <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                            </a>
+                                            {% endif %}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% endif %}
                     </div>
                     {% else %}
                     <div class="claimed-state">
+                        <div class="claimed-badge"><i class="fa-solid fa-circle-check"></i> {{ recipient }} has chosen their gift!</div>
                         <h3>{{ recipient }} selected:</h3>
                         
                         <!-- Show matching selection card -->
@@ -82,7 +123,9 @@
                                 <div class="card-glow"></div>
                                 <div class="card-inner">
                                     <div class="gift-image-container">
-                                        {% if gift_item == 'iphone' or 'iPhone' in gift_item %}
+                                        {% if selected_option and selected_option.image_url %}
+                                        <img src="{{ selected_option.image_url }}" alt="{{ selected_option.title }}" class="gift-img">
+                                        {% elif gift_item == 'iphone' or 'iPhone' in gift_item %}
                                         <img src="{{ url_for('static', filename='images/iphone.png') }}" alt="iPhone 15 Pro Max" class="gift-img">
                                         {% elif gift_item == 'ps5' or 'PlayStation' in gift_item %}
                                         <img src="{{ url_for('static', filename='images/ps5.png') }}" alt="PlayStation 5" class="gift-img">
@@ -95,12 +138,34 @@
                                         {% endif %}
                                     </div>
                                     <h3 class="gift-item-title">
-                                        {% if gift_item == 'iphone' %}iPhone 15 Pro Max
+                                        {% if selected_option %}
+                                        {{ selected_option.title }}
+                                        {% elif gift_item == 'iphone' %}iPhone 15 Pro Max
                                         {% elif gift_item == 'ps5' %}PlayStation 5
                                         {% elif gift_item == 'airpods' %}AirPods Max
                                         {% elif gift_item == 'watch' %}Luxury Watch
                                         {% else %}{{ gift_item }}{% endif %}
                                     </h3>
+                                    {% if selected_option and selected_option.specs %}
+                                    <p class="gift-item-specs"><i class="fa-solid fa-sliders"></i> {{ selected_option.specs }}</p>
+                                    {% endif %}
+                                    {% if selected_option and selected_option.amazon_link %}
+                                    <div class="tracker-amazon-cta">
+                                        {% if 'flipkart' in selected_option.amazon_link|lower %}
+                                        <a href="{{ selected_option.amazon_link }}" target="_blank" rel="noopener noreferrer" class="btn btn-flipkart">
+                                            <i class="fa-solid fa-bag-shopping"></i> Purchase on Flipkart for {{ recipient }} <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                        </a>
+                                        {% elif 'amazon' in selected_option.amazon_link|lower or 'amzn' in selected_option.amazon_link|lower %}
+                                        <a href="{{ selected_option.amazon_link }}" target="_blank" rel="noopener noreferrer" class="btn btn-amazon">
+                                            <i class="fa-brands fa-amazon"></i> Purchase on Amazon for {{ recipient }} <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                        </a>
+                                        {% else %}
+                                        <a href="{{ selected_option.amazon_link }}" target="_blank" rel="noopener noreferrer" class="btn btn-amazon">
+                                            <i class="fa-solid fa-cart-shopping"></i> Purchase Online for {{ recipient }} <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                        </a>
+                                        {% endif %}
+                                    </div>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>

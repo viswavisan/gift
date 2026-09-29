@@ -293,8 +293,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const choiceGridContainer = document.getElementById('choice-grid-container');
     const revealGiftImg = document.getElementById('reveal-gift-img');
     const revealGiftTitle = document.getElementById('reveal-gift-title');
+    const revealGiftSpecs = document.getElementById('reveal-gift-specs');
+    const revealAmazonWrapper = document.getElementById('reveal-amazon-wrapper');
+    const revealAmazonBtn = document.getElementById('reveal-amazon-btn');
 
-    // Gift definition mapping
+    // Gift definition mapping fallback
     const giftMap = {
         iphone: {
             title: 'iPhone 15 Pro Max',
@@ -331,19 +334,77 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    const revealSelectedGift = async (giftKey) => {
+    const revealSelectedGift = async (card) => {
         if (isRevealed) return;
         isRevealed = true;
 
-        const gift = giftMap[giftKey] || giftMap.iphone;
+        const optIdx = card.getAttribute('data-opt-idx');
+        const giftKey = card.getAttribute('data-gift');
+
+        let gift = null;
+        if (data.options && optIdx !== null && data.options[parseInt(optIdx, 10)]) {
+            gift = data.options[parseInt(optIdx, 10)];
+        } else if (giftMap[giftKey]) {
+            gift = {
+                title: giftMap[giftKey].title,
+                image_url: giftMap[giftKey].image,
+                specs: '',
+                amazon_link: ''
+            };
+        } else {
+            const titleEl = card.querySelector('h3');
+            const imgEl = card.querySelector('img');
+            gift = {
+                title: titleEl ? titleEl.textContent : (giftKey || 'Special Gift'),
+                image_url: imgEl ? imgEl.src : '/static/images/iphone.png',
+                specs: '',
+                amazon_link: ''
+            };
+        }
 
         // Phase 1: Fade out Choice Grid
         choiceGridContainer.classList.add('fade-out');
 
         // Phase 2: Configure final card content
-        revealGiftImg.src = gift.image;
+        revealGiftImg.src = gift.image_url || gift.image || '/static/images/iphone.png';
         revealGiftImg.alt = gift.title;
         revealGiftTitle.textContent = gift.title;
+
+        if (revealGiftSpecs) {
+            if (gift.specs && gift.specs.trim()) {
+                revealGiftSpecs.textContent = gift.specs;
+                revealGiftSpecs.style.display = 'block';
+            } else {
+                revealGiftSpecs.textContent = '';
+                revealGiftSpecs.style.display = 'none';
+            }
+        }
+
+        if (revealAmazonWrapper && revealAmazonBtn) {
+            if (gift.amazon_link && gift.amazon_link.trim()) {
+                const lower = gift.amazon_link.toLowerCase();
+                let storeName = 'Amazon';
+                let storeIcon = 'fa-brands fa-amazon';
+                let btnClass = 'btn-amazon';
+
+                if (lower.includes('flipkart.com') || lower.includes('dl.flipkart')) {
+                    storeName = 'Flipkart';
+                    storeIcon = 'fa-solid fa-bag-shopping';
+                    btnClass = 'btn-flipkart';
+                } else if (!lower.includes('amazon') && !lower.includes('amzn')) {
+                    storeName = 'Product';
+                    storeIcon = 'fa-solid fa-cart-shopping';
+                    btnClass = 'btn-amazon';
+                }
+
+                revealAmazonBtn.href = gift.amazon_link;
+                revealAmazonBtn.className = `btn ${btnClass}`;
+                revealAmazonBtn.innerHTML = `<i class="${storeIcon}"></i> View on ${storeName} <i class="fa-solid fa-arrow-up-right-from-square"></i>`;
+                revealAmazonWrapper.classList.remove('hidden');
+            } else {
+                revealAmazonWrapper.classList.add('hidden');
+            }
+        }
 
         // Save selection in the database via API call
         if (data.giftId) {
@@ -354,7 +415,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        gift_item: giftKey
+                        gift_item: gift.title || giftKey
                     })
                 });
             } catch (e) {
@@ -381,8 +442,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const choiceCards = document.querySelectorAll('.choice-card');
     choiceCards.forEach(card => {
         card.addEventListener('click', () => {
-            const giftKey = card.getAttribute('data-gift');
-            revealSelectedGift(giftKey);
+            revealSelectedGift(card);
         });
     });
 

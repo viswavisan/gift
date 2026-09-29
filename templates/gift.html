@@ -43,31 +43,44 @@
             <!-- Choice Grid (Initially Hidden) -->
             <div id="choice-grid-container" class="choice-grid-container hidden">
                 <h2 class="choice-title">Pick Your Gift, {{ recipient }}!</h2>
-                <div class="choice-grid">
-                    <div class="choice-card animate-choice-in" data-gift="iphone" style="animation-delay: 0.1s;">
+                <div class="choice-grid" id="choice-grid">
+                    {% for opt in options %}
+                    <div class="choice-card animate-choice-in" data-opt-idx="{{ loop.index0 }}" data-opt-id="{{ opt.id }}" data-gift="{{ opt.id or opt.title }}" style="animation-delay: {{ loop.index0 * 0.1 }}s;">
                         <div class="choice-img-container">
-                            <img src="{{ url_for('static', filename='images/iphone.png') }}" alt="iPhone 15 Pro Max">
+                            {% if opt.image_url %}
+                            <img src="{{ opt.image_url }}" alt="{{ opt.title }}" onerror="this.onerror=null; this.src='/static/images/iphone.png';">
+                            {% else %}
+                            <div class="choice-fallback-icon"><i class="fa-solid fa-gift"></i></div>
+                            {% endif %}
                         </div>
-                        <h3>iPhone 15 Pro Max</h3>
-                    </div>
-                    <div class="choice-card animate-choice-in" data-gift="ps5" style="animation-delay: 0.2s;">
-                        <div class="choice-img-container">
-                            <img src="{{ url_for('static', filename='images/ps5.png') }}" alt="PlayStation 5">
+                        <div class="choice-body">
+                            <h3>{{ opt.title }}</h3>
+                            {% if opt.specs %}
+                            <p class="choice-specs"><i class="fa-solid fa-sliders"></i> {{ opt.specs }}</p>
+                            {% endif %}
+                            {% if opt.amazon_link %}
+                            <div class="choice-amazon-wrapper">
+                                {% if 'flipkart' in opt.amazon_link|lower %}
+                                <a href="{{ opt.amazon_link }}" target="_blank" rel="noopener noreferrer" class="choice-store-pill choice-flipkart-pill" onclick="event.stopPropagation();" title="View details on Flipkart">
+                                    <i class="fa-solid fa-bag-shopping"></i> Flipkart Link <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                </a>
+                                {% elif 'amazon' in opt.amazon_link|lower or 'amzn' in opt.amazon_link|lower %}
+                                <a href="{{ opt.amazon_link }}" target="_blank" rel="noopener noreferrer" class="choice-store-pill choice-amazon-pill" onclick="event.stopPropagation();" title="View details on Amazon">
+                                    <i class="fa-brands fa-amazon"></i> Amazon Link <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                </a>
+                                {% else %}
+                                <a href="{{ opt.amazon_link }}" target="_blank" rel="noopener noreferrer" class="choice-store-pill choice-general-pill" onclick="event.stopPropagation();" title="View product link">
+                                    <i class="fa-solid fa-cart-shopping"></i> Product Link <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                </a>
+                                {% endif %}
+                            </div>
+                            {% endif %}
                         </div>
-                        <h3>PlayStation 5</h3>
+                        <button type="button" class="btn-select-gift">
+                            <span>Select This</span> <i class="fa-solid fa-check"></i>
+                        </button>
                     </div>
-                    <div class="choice-card animate-choice-in" data-gift="airpods" style="animation-delay: 0.3s;">
-                        <div class="choice-img-container">
-                            <img src="{{ url_for('static', filename='images/airpods.png') }}" alt="AirPods Max">
-                        </div>
-                        <h3>AirPods Max</h3>
-                    </div>
-                    <div class="choice-card animate-choice-in" data-gift="watch" style="animation-delay: 0.4s;">
-                        <div class="choice-img-container">
-                            <img src="{{ url_for('static', filename='images/watch.png') }}" alt="Luxury Watch">
-                        </div>
-                        <h3>Luxury Watch</h3>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
 
@@ -84,6 +97,12 @@
                                 <img src="" alt="" class="gift-img" id="reveal-gift-img">
                             </div>
                             <h3 class="gift-item-title" id="reveal-gift-title"></h3>
+                            <p class="gift-item-specs" id="reveal-gift-specs"></p>
+                            <div id="reveal-amazon-wrapper" class="reveal-amazon-wrapper hidden">
+                                <a href="#" id="reveal-amazon-btn" target="_blank" rel="noopener noreferrer" class="btn btn-amazon">
+                                    <i class="fa-brands fa-amazon"></i> View on Amazon <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -122,7 +141,8 @@
             occasion: {{ occasion | tojson }},
             wrapStyle: {{ wrap_style | tojson }},
             giftItem: {{ gift_item | tojson }},
-            message: {{ message | tojson }}
+            message: {{ message | tojson }},
+            options: {{ options | tojson }}
         };
     </script>
     <script src="{{ url_for('static', filename='js/gift.js') }}"></script>
